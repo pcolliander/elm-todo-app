@@ -1,0 +1,221 @@
+var _user$project$Main_ops = _user$project$Main_ops || {};
+_user$project$Main_ops['=>'] = F2(
+	function (v0, v1) {
+		return {ctor: '_Tuple2', _0: v0, _1: v1};
+	});
+var _user$project$Main$model = {
+	todos: {ctor: '[]'},
+	inputValue: ''
+};
+var _user$project$Main$Model = F2(
+	function (a, b) {
+		return {todos: a, inputValue: b};
+	});
+var _user$project$Main$Todo = F3(
+	function (a, b, c) {
+		return {id: a, title: b, isCompleted: c};
+	});
+var _user$project$Main$update = F2(
+	function (msg, model) {
+		var _p0 = msg;
+		switch (_p0.ctor) {
+			case 'Create':
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{
+						todos: {
+							ctor: '::',
+							_0: A3(
+								_user$project$Main$Todo,
+								_elm_lang$core$List$length(model.todos) + 1,
+								model.inputValue,
+								false),
+							_1: model.todos
+						}
+					});
+			case 'Change':
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{inputValue: _p0._0});
+			case 'Delete':
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{
+						todos: A2(
+							_elm_lang$core$List$filter,
+							function (todo) {
+								return !_elm_lang$core$Native_Utils.eq(todo.id, _p0._0);
+							},
+							model.todos)
+					});
+			default:
+				var updateEntry = function (t) {
+					return A2(
+						_rogeriochaves$elm_ternary$Ternary_ops['?'],
+						_elm_lang$core$Native_Utils.eq(t.id, _p0._0),
+						_elm_lang$core$Native_Utils.update(
+							t,
+							{isCompleted: !t.isCompleted}))(t);
+				};
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{
+						todos: A2(_elm_lang$core$List$map, updateEntry, model.todos)
+					});
+		}
+	});
+var _user$project$Main$ToggleComplete = function (a) {
+	return {ctor: 'ToggleComplete', _0: a};
+};
+var _user$project$Main$Delete = function (a) {
+	return {ctor: 'Delete', _0: a};
+};
+var _user$project$Main$Change = function (a) {
+	return {ctor: 'Change', _0: a};
+};
+var _user$project$Main$Create = {ctor: 'Create'};
+var _user$project$Main$view = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$style(
+				{
+					ctor: '::',
+					_0: A2(_user$project$Main_ops['=>'], 'display', 'flex'),
+					_1: {
+						ctor: '::',
+						_0: A2(_user$project$Main_ops['=>'], 'flex-direction', 'column'),
+						_1: {
+							ctor: '::',
+							_0: A2(_user$project$Main_ops['=>'], 'width', '250px'),
+							_1: {
+								ctor: '::',
+								_0: A2(_user$project$Main_ops['=>'], 'margin', '50px auto'),
+								_1: {ctor: '[]'}
+							}
+						}
+					}
+				}),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$input,
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$placeholder('Write something'),
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$html$Html_Events$onInput(_user$project$Main$Change),
+						_1: {ctor: '[]'}
+					}
+				},
+				{ctor: '[]'}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$ul,
+					{ctor: '[]'},
+					A2(
+						_elm_lang$core$List$map,
+						function (todo) {
+							return A2(
+								_elm_lang$html$Html$div,
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html_Attributes$style(
+										{
+											ctor: '::',
+											_0: A2(_user$project$Main_ops['=>'], 'display', 'flex'),
+											_1: {
+												ctor: '::',
+												_0: A2(_user$project$Main_ops['=>'], 'justify-content', 'space-between'),
+												_1: {ctor: '[]'}
+											}
+										}),
+									_1: {ctor: '[]'}
+								},
+								{
+									ctor: '::',
+									_0: A2(
+										_elm_lang$html$Html$li,
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html_Events$onClick(
+												_user$project$Main$ToggleComplete(todo.id)),
+											_1: {
+												ctor: '::',
+												_0: _elm_lang$html$Html_Attributes$style(
+													{
+														ctor: '::',
+														_0: A2(
+															_user$project$Main_ops['=>'],
+															'text-decoration',
+															A2(_rogeriochaves$elm_ternary$Ternary_ops['?'], todo.isCompleted, 'line-through')('')),
+														_1: {ctor: '[]'}
+													}),
+												_1: {ctor: '[]'}
+											}
+										},
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html$text(todo.title),
+											_1: {ctor: '[]'}
+										}),
+									_1: {
+										ctor: '::',
+										_0: A2(
+											_elm_lang$html$Html$span,
+											{
+												ctor: '::',
+												_0: _elm_lang$html$Html_Attributes$style(
+													{
+														ctor: '::',
+														_0: A2(_user$project$Main_ops['=>'], 'cursor', 'pointer'),
+														_1: {ctor: '[]'}
+													}),
+												_1: {
+													ctor: '::',
+													_0: _elm_lang$html$Html_Events$onClick(
+														_user$project$Main$Delete(todo.id)),
+													_1: {ctor: '[]'}
+												}
+											},
+											{
+												ctor: '::',
+												_0: _elm_lang$html$Html$text('X'),
+												_1: {ctor: '[]'}
+											}),
+										_1: {ctor: '[]'}
+									}
+								});
+						},
+						A2(
+							_elm_lang$core$List$sortBy,
+							function (_) {
+								return _.id;
+							},
+							model.todos))),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$button,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Events$onClick(_user$project$Main$Create),
+							_1: {ctor: '[]'}
+						},
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html$text('Create'),
+							_1: {ctor: '[]'}
+						}),
+					_1: {ctor: '[]'}
+				}
+			}
+		});
+};
+var _user$project$Main$main = _elm_lang$html$Html$beginnerProgram(
+	{model: _user$project$Main$model, view: _user$project$Main$view, update: _user$project$Main$update})();

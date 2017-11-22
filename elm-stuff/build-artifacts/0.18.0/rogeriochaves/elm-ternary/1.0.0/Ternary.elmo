@@ -1,0 +1,8 @@
+var _rogeriochaves$elm_ternary$Ternary_ops = _rogeriochaves$elm_ternary$Ternary_ops || {};
+_rogeriochaves$elm_ternary$Ternary_ops['?:'] = _elm_lang$core$Basics$flip(_elm_lang$core$Maybe$withDefault);
+var _rogeriochaves$elm_ternary$Ternary$ifThenElse = F3(
+	function (conditional, trueCase, falseCase) {
+		return conditional ? trueCase : falseCase;
+	});
+var _rogeriochaves$elm_ternary$Ternary_ops = _rogeriochaves$elm_ternary$Ternary_ops || {};
+_rogeriochaves$elm_ternary$Ternary_ops['?'] = _rogeriochaves$elm_ternary$Ternary$ifThenElse;

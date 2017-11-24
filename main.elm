@@ -62,5 +62,12 @@ view model =
         |> List.map (\todo -> div [ style [ "display" => "flex", "justify-content" => "space-between" ]] [ li [ onClick (ToggleComplete todo.id), style [ "user-select" => "none", "text-decoration" => (todo.isCompleted ? "line-through" <| "")]] [ text todo.title ], span [ style [ "cursor" => "pointer"], onClick (Delete todo.id)] [ text "X" ]] )
         |> ul []
 
-     , button [ onClick Create ] [ text "Create" ]]
+     , button [ onClick Create ] [ text "Create" ]
+     
+     , span [] [ ("Total number of todos: " ++ ((length model.todos) |> toString))  |> text ]
+     , span [] [ ("Finished todos: " ++ (filter (\t -> t.isCompleted) model.todos |> length |> toString)) |> text ]
+     
+   ]
+
+
 
